@@ -2,6 +2,7 @@
 #define _tapinsdl_header_imported_
 
 #include <SDL.h>
+#include <assert.h>
 #include <iostream>
 #include <sstream>
 #include <string>

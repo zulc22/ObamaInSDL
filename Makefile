@@ -1,9 +1,9 @@
-CC=gcc
+CC=g++
 
 LIBS=$(shell sdl-config --cflags --libs)
 
 bin/TapInSDL: tapinsdl.cpp bin/
-	$(CC) -o $@ $< $(LIBS)
+	$(CC) $(LIBS) -o $@ $< -std=c++98
 
 bin/:
 	mkdir bin
