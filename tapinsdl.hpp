@@ -2,13 +2,17 @@
 #define _tapinsdl_header_imported_
 
 #include "SDL.h"
+#include <string>
+
+// for enums
+#define s(e) e = std::string(#e)
 
 enum CharacterSide {
-    left, right
+    s(left), s(right)
 };
 
 enum CharacterExpression {
-    default, inquisition, shock, annoyance, flustered
+    s(default), s(inquisition), s(shock), s(annoyance), s(flustered)
 };
 
 class Character {
