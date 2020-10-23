@@ -2,7 +2,7 @@ CC=gcc
 
 LIBS=$(shell sdl-config --cflags --libs)
 
-bin/main: main.c bin/
+bin/TapInSDL: tapinsdl.cpp bin/
 	$(CC) -o $@ $< $(LIBS)
 
 bin/:

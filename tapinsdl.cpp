@@ -1,36 +1,75 @@
-#include "SDL.h"
-
-//SDL_Event 
+#include "tapinsdl.hpp"
 
 //#define SDLFLAGS SDL_FULLSCREEN | SDL_SWSURFACE // <- fullscreen is annoying
 #define SDLFLAGS SDL_SWSURFACE
 
+namespace TapInSDL {
 
+    // Character Class Methods
+    Character::Character(bool onLeft, std::string characterFolder) {
 
-SDL_Surface* screen;
+        onLeftSide = onLeft;
+        charFolder = characterFolder;
+        expressionImg = NULL;
 
-int main(int argc, char* argv[] )
-{
+        express("default");
 
-    SDL_Surface* pip = NULL;
-    SDL_Surface* screen = NULL;
-    SDL_Surface* PlaceholderRoom = NULL;
+    }
 
-    SDL_Init(SDL_INIT_EVERYTHING);
+    void Character::express(std::string expression) {
 
-    SDL_WM_SetCaption("Free Whaat?? Pre-Alpha", "game");
-    screen = SDL_SetVideoMode(1024, 768, 32, SDLFLAGS);
+        if (expressionImg != NULL) SDL_FreeSurface(expressionImg);
 
-    pip = SDL_LoadBMP("characters/Pip/pip.bmp");
+        std::ostringstream expressionPath;
+        expressionPath << "characters/" << charFolder << "/" << expression;
+        expressionImg = SDL_LoadBMP( expressionPath.str().c_str() );
+        
+    }
 
-    PlaceholderRoom = SDL_LoadBMP("bg/FemaleBullying.bmp");
+    void Character::draw(SDL_Surface* screen) {
+        
+        if (expressionImg == NULL) return; // Don't draw anything if there's no image
 
-    SDL_BlitSurface(PlaceholderRoom, NULL, screen, NULL);
-    SDL_BlitSurface(pip, NULL, screen, NULL);
+        int x;
+        int y = (screen->h / 2) - (expressionImg->h / 2);
+        
+        if (onLeftSide) {
+            x = (screen->w / 3) - (expressionImg->w / 2);
+        } else {
+            x = ((screen->w / 3) * 2) - (expressionImg->w / 2);
+        }
 
-    SDL_Flip(screen);
+        SDL_Rect charPos;
+        charPos.h = expressionImg->h;
+        charPos.w = expressionImg->w;
+        charPos.x = x;
+        charPos.y = y;
 
-    SDL_Delay(2000);
+        SDL_BlitSurface(expressionImg, &expressionImg->clip_rect, screen, &charPos);
+        
+    }
 
-    return 0;
+    // Globals
+    SDL_Surface* screen;
+    SDL_AudioSpec* music;
+    Character charLeft;
+    Character charRight;
+
+    int main(int argc, char* argv[])
+    {
+        SDL_Init(SDL_INIT_EVERYTHING);
+
+    //  SDL_WM_SetCaption("Free Whaat?? Pre-Alpha", "game");
+        screen = SDL_SetVideoMode(1024, 768, 32, SDLFLAGS);
+
+    //  SDL_BlitSurface(PlaceholderRoom, NULL, screen, NULL);
+    //  SDL_BlitSurface(pip, NULL, screen, NULL);
+
+        SDL_Flip(screen);
+
+        SDL_Delay(2000);
+
+        return 0;
+    }
+
 }

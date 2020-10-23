@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "TapInSDL (Linux)",
+            "includePath": [
+                "/usr/include/SDL"
+            ],
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/clang",
+            "cStandard": "c89",
+            "cppStandard": "c++98"
+        }
+    ],
+    "version": 4
+}
