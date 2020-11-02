@@ -1,2 +1,9 @@
 Thumbs.db
 bin/
+**.ncb
+**.pdb
+**.idb
+**.pch
+**.rsp
+Debug/
+Release/

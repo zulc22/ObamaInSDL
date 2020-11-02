@@ -1,7 +1,7 @@
 #ifndef _tapinsdl_header_imported_
 #define _tapinsdl_header_imported_
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include <assert.h>
 #include <iostream>
 #include <sstream>
